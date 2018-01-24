@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!--div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
@@ -16,5 +16,48 @@
   <li>
     <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
   </li>
-</ul>
+</ul-->
 
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome</h1>
+    <h2>SearchInk Frontend Test</h2>
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Status</div>
+    <div class="panel-body">
+      <h3>{{title}}</h3>
+      <table class="table">
+        <tr *ngFor="let task of tasks; index as i">
+          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" (click)="selectTask(task)">{{i}}</button></td>
+          <td><input type="text" class="form-control" [(ngModel)]="task.title"></td>
+          <td><input type="text" class="form-control" [(ngModel)]="task.description"></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button></td>
+          <td><button type="button" class="btn btn-warning" (click)="modifyTask(task.id,task.title,task.description,task.priority,task.status)">Modify</button></td>
+          <td><button type="button" class="btn btn-success" (click)="postponeTask(task.id)">postpone</button></td>
+        </tr>
+      </table>
+      <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Task Info</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table"><tr><td>ID</td><td>{{task.id}}</td></tr><tr><td>TITLE</td><td><input type="text" class="form-control" [(ngModel)]="task.title"></td></tr><tr><td>DESCRIPTION</td><td><input type="text" class="form-control" [(ngModel)]="task.description"></td></tr><tr><td>PRIORITY</td><td><input type="text" class="form-control" [(ngModel)]="task.priority"></td></tr><tr><td>STATUS</td><td><input type="text" class="form-control" [(ngModel)]="task.status"></td></tr></table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="modifyTask(task.id,task.title,task.description,task.priority,task.status)">Modify</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask(task.id)">Delete</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
