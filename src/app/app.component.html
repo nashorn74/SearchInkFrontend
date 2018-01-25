@@ -29,12 +29,18 @@
       <h3>{{title}}</h3>
       <table class="table">
         <tr *ngFor="let task of tasks; index as i">
-          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" (click)="selectTask(task)">{{i}}</button></td>
-          <td><input type="text" class="form-control" [(ngModel)]="task.title"></td>
-          <td><input type="text" class="form-control" [(ngModel)]="task.description"></td>
-          <td><button type="button" class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button></td>
-          <td><button type="button" class="btn btn-warning" (click)="modifyTask(task.id,task.title,task.description,task.priority,task.status)">Modify</button></td>
-          <td><button type="button" class="btn btn-success" (click)="postponeTask(task.id)">postpone</button></td>
+          <td *ngIf="task.status != 8888"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" (click)="selectTask(task)">{{i}}</button></td>
+          <td *ngIf="task.status == 8888" class="success">{{i}}</td>
+          <td *ngIf="task.status != 8888"><input type="text" class="form-control" [(ngModel)]="task.title"></td>
+          <td *ngIf="task.status == 8888" class="success">{{task.title}}</td>
+          <td *ngIf="task.status != 8888"><input type="text" class="form-control" [(ngModel)]="task.description"></td>
+          <td *ngIf="task.status == 8888" class="success">{{task.description}}</td>
+          <td *ngIf="task.status != 8888"><button type="button" class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button></td>
+          <td *ngIf="task.status == 8888" class="success">{{task.priority}}</td>
+          <td *ngIf="task.status != 8888"><button type="button" class="btn btn-warning" (click)="modifyTask(task.id,task.title,task.description,task.priority,task.status)">Modify</button></td>
+          <td *ngIf="task.status == 8888" class="success">{{task.status}}</td>
+          <td *ngIf="task.status != 8888"><button type="button" class="btn btn-success" (click)="postponeTask(task.id)">postpone</button></td>
+          <td *ngIf="task.status == 8888" class="success"></td>
         </tr>
       </table>
       <!-- Modal -->
