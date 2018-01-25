@@ -23,11 +23,12 @@ export class AppComponent {
       that.stompClient.subscribe("/topic/greetings", (message) => {
         if(message.body) {
           //console.log(message.body);
-          if (message.body instanceof Array){
-            console.log('recieve data:'+message.body.length);
-            this.tasks = message.body;
-            if (message.body.length > 0) {
-              this.task = message.body[0];
+          var tasks = JSON.parse(message.body);
+          if (tasks instanceof Array){
+            console.log('recieve data:'+tasks.length);
+            that.tasks = tasks;
+            if (tasks.length > 0) {
+              this.task = tasks[0];
             }
           }
         }
@@ -71,6 +72,10 @@ export class AppComponent {
 
   postponeTask(id) {
   	console.log(id);
+    this.http.put('http://127.0.0.1:8080/tasks/postpone/'+id,'').subscribe(data => {
+      console.log(data);
+      this.loadTask();
+    });
   }
 
   deleteTask(id) {
